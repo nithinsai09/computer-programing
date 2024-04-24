@@ -1,0 +1,15 @@
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if sum(gas) < sum(cost):
+            # If total gas is less than total cost, it's impossible to complete the circuit.
+            return -1
+
+        start, fuel = 0, 0
+        for i in range(len(gas)):
+            fuel += gas[i] - cost[i]
+            if fuel < 0:
+                # If fuel drops below 0, start from the next station.
+                start = i + 1
+                fuel = 0
+
+        return start
